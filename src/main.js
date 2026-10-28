@@ -111,7 +111,7 @@ if (pig && list) {
 /* Weiches Einblenden beim Scrollen */
 if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.section__head, .pig, .cutlist > li, .story__text, .story__mark, .pillars__list > li, .steps > li, .split > div, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
+  document.querySelectorAll('.claim > *, .section__head, .cuts__grid, .media, .steps, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
 }
 
 document.querySelectorAll('[data-year]').forEach((y) => { y.textContent = String(new Date().getFullYear()); });

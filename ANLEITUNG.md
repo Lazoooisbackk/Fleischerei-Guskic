@@ -1,3 +1,3 @@
-# Upload F6: Guskic mittig, keine Kopfzeile im Start, Siegel-Leiste weg
+# Upload F7: Neuaufbau im Apple-Ton mit Glas-Karten (Start bleibt)
 
-Drei Dateien: index.html, src/style.css, src/main.js. In einem FRISCHEN GitHub-Upload-Tab reinziehen (src als Ordner), Commit, dann „hab“.
+Vier Dateien: index.html, src/style.css, src/main.js, public/og.jpg. In einem FRISCHEN GitHub-Upload-Tab reinziehen (src und public als Ordner), Commit, dann „hab“.
