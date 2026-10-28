@@ -3,22 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1C1A19">
+<meta name="theme-color" content="#7A1424">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fonts.css">
 <title>Fleischerei Guskic – Schweinefleisch und Spanferkel am Hannovermarkt, 1200 Wien</title>
 <meta name="description" content="Fleischerei Guskic am Hannovermarkt, Stand 90/91, 1200 Wien: seit 2008 der einzige Stand mit Schweinefleisch. Jedes Gusto-Stück frisch geschnitten, ganzes Spanferkel roh oder gebraten auf Bestellung.">
 <link rel="canonical" href="https://fleischerei-guskic.vercel.app/">
 <meta property="og:type" content="business.business">
 <meta property="og:title" content="Fleischerei Guskic – Hannovermarkt, Wien">
-<meta property="og:description" content="Seit 2008 am Stand 90/91. Schweinefleisch frisch geschnitten, Spanferkel auf Bestellung.">
+<meta property="og:description" content="Eine Familie. Ein Stand. Nur Schwein. Seit 2008 am Hannovermarkt, Stand 90/91.">
 <meta property="og:url" content="https://fleischerei-guskic.vercel.app/">
 <meta property="og:image" content="https://fleischerei-guskic.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="de_AT">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Butcher","name":"Fleischerei Guskic","url":"https://fleischerei-guskic.vercel.app/","address":{"@type":"PostalAddress","streetAddress":"Hannovermarkt, Stand 90/91","postalCode":"1200","addressLocality":"Wien","addressCountry":"AT"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"16:00"}],"servesCuisine":"Schweinefleisch, Spanferkel","priceRange":"€"}
+{"@context":"https://schema.org","@type":"Butcher","name":"Fleischerei Guskic","url":"https://fleischerei-guskic.vercel.app/","image":"https://fleischerei-guskic.vercel.app/og.jpg","address":{"@type":"PostalAddress","streetAddress":"Hannovermarkt, Stand 90/91","postalCode":"1200","addressLocality":"Wien","addressCountry":"AT"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"16:00"}],"servesCuisine":"Schweinefleisch, Spanferkel","priceRange":"€"}
 </script>
 <script type="module" src="/src/main.js"></script>
 </head>
@@ -26,54 +29,119 @@
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="top" id="top">
-  <a class="brand" href="#top" aria-label="Fleischerei Guskic, zum Anfang"><span class="brand__name">Guskic</span><span class="brand__sub">Fleischerei · Hannovermarkt</span></a>
+  <a class="brand" href="#top"><span class="brand__name">Guskic</span><span class="brand__sub">Fleischerei · Hannovermarkt</span></a>
   <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen"><span></span><span></span></button>
   <nav class="nav" id="nav" aria-label="Seitenbereiche">
-    <a href="#sortiment">Sortiment</a>
+    <a href="#stueck">Vom Schweinderl</a>
+    <a href="#geschichte">Seit 2008</a>
     <a href="#spanferkel">Spanferkel</a>
     <a href="#zeiten">Öffnungszeiten</a>
-    <a href="#kontakt">Kontakt</a>
+    <a class="nav__call" href="#kontakt">Vorbestellen</a>
   </nav>
 </header>
 
 <main id="main">
+
+  <!-- Start: wie bei Flannery Beef ein persönlicher Satz über die ganze Fläche. Fotos kommen später (siehe README), bis dahin trägt das Rot. -->
   <section class="hero" aria-labelledby="hero-title">
-    <p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Öffnungszeiten unten</span></p>
-    <p class="eyebrow">Fleischerei Guskic · Wien 20</p>
-    <h1 class="display" id="hero-title">Ehrliches Fleisch<br>vom <em>Hannovermarkt.</em></h1>
-    <p class="lead">Seit 2008 am Stand 90/91. Der einzige Stand am Markt mit Schweinefleisch: jedes Gusto-Stück frisch geschnitten, Spanferkel auf Bestellung.</p>
-    <div class="actions">
-      <a class="btn btn--red" href="#kontakt">Vorbestellen</a>
-      <a class="btn btn--line" href="#zeiten">Öffnungszeiten</a>
+    <div class="hero__inner">
+      <p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Öffnungszeiten unten</span></p>
+      <h1 class="hero__title" id="hero-title">Eine Familie.<br>Ein Stand.<br><em>Nur Schwein.</em></h1>
+      <p class="hero__lead">Seit 2008 am Hannovermarkt, Stand 90/91. Der einzige Stand am Markt mit Schweinefleisch: jedes Gusto-Stück frisch geschnitten, ganzes Spanferkel auf Bestellung.</p>
+      <div class="actions">
+        <a class="btn btn--cream" href="#kontakt">Vorbestellen</a>
+        <a class="btn btn--ghost" href="#stueck">Was es gibt</a>
+      </div>
     </div>
-    <ul class="facts" aria-label="Auf einen Blick">
-      <li><strong>Seit 2008</strong><span>Familienbetrieb in der Brigittenau</span></li>
-      <li><strong>Nur Schwein</strong><span>Der einzige Stand am Hannovermarkt dafür</span></li>
-      <li><strong>Spanferkel</strong><span>Roh zum Grillen oder fertig gebraten</span></li>
-    </ul>
   </section>
 
-  <section class="section" id="sortiment" aria-labelledby="sortiment-title">
-    <div class="section__head">
-      <p class="eyebrow">Sortiment</p>
-      <h2 class="display display--m" id="sortiment-title">Jedes Gusto-Stück vom Schweinderl.</h2>
-      <p class="serif">Tagesfrisch am Stand. Was nicht da ist, schneiden wir dir zu.</p>
+  <!-- Siegel-Leiste wie bei Porter Road: Fakten als Stempel, laufen langsam durch -->
+  <div class="seals" aria-label="Auf einen Blick">
+    <div class="seals__track" data-seals>
+      <span>Nur Schwein</span><span>Seit 2008</span><span>Tagesfrisch geschnitten</span><span>Stand 90/91</span><span>Spanferkel auf Bestellung</span><span>Familienbetrieb</span>
     </div>
-    <ol class="grid">
-      <li><span class="num">01</span><h3>Schweinsbraten</h3><p>Schulter, Schopf oder Bauch, mit Schwarte, für den Sonntag.</p></li>
-      <li><span class="num">02</span><h3>Kotelett &amp; Karree</h3><p>Geschnitten, wie du es willst, mit oder ohne Knochen.</p></li>
-      <li><span class="num">03</span><h3>Bauchfleisch &amp; Ripperl</h3><p>Für Griller und Ofen. Mariniert auf Wunsch.</p></li>
-      <li><span class="num">04</span><h3>Faschiertes</h3><p>Frisch vor deinen Augen durch den Wolf.</p></li>
-      <li><span class="num">05</span><h3>Selchfleisch &amp; Speck</h3><p>Geselchtes für Knödel, Bohnen und Brotzeit.</p></li>
-      <li><span class="num">06</span><h3>Wurst &amp; Leberkäse</h3><p>Hausmannskost für die Jause, im Ganzen oder aufgeschnitten.</p></li>
-    </ol>
+  </div>
+
+  <!-- Vom Schweinderl: statt Shop ein Schnittplan. Stück antippen, rechts steht, was es ist. -->
+  <section class="section cuts" id="stueck" aria-labelledby="cuts-title">
+    <div class="section__head">
+      <p class="eyebrow">Vom Schweinderl</p>
+      <h2 class="h2" id="cuts-title">Jedes Gusto-Stück. Tagesfrisch am Stand.</h2>
+      <p class="serif">Tipp auf ein Stück. Was nicht da ist, schneiden wir dir zu.</p>
+    </div>
+    <div class="cuts__grid">
+      <figure class="pig" data-pig>
+        <svg viewBox="0 0 1000 600" role="img" aria-labelledby="pig-title" focusable="false">
+          <title id="pig-title">Schnittplan Schwein: Schopf, Karree, Bauch, Schulter, Schlögel</title>
+          <defs><clipPath id="pig-clip"><path d="M66,296 C84,262 112,244 150,236 C176,228 196,224 216,214 L238,176 C256,164 270,178 264,206 L272,214 C420,186 640,180 822,206 C880,216 906,246 904,290 C930,276 944,300 922,312 C904,350 890,395 882,430 L884,520 C884,536 858,538 856,520 L850,440 C836,422 816,416 780,420 C700,446 520,452 382,440 C342,446 332,472 332,520 C332,536 306,538 304,520 L300,440 C270,422 232,410 192,402 C150,396 112,382 86,352 C70,340 62,330 62,314 C62,306 64,300 66,296 Z"/></clipPath></defs>
+          <g class="pig__regions" clip-path="url(#pig-clip)">
+            <path data-cut="schopf" d="M272,140 L382,140 L382,332 L272,332 Z"/>
+            <path data-cut="karree" d="M382,140 L758,140 L758,332 L382,332 Z"/>
+            <path data-cut="bauch" d="M382,332 L758,332 L758,480 L382,480 Z"/>
+            <path data-cut="schulter" d="M272,332 L382,332 L382,560 L272,560 Z"/>
+            <path data-cut="schloegel" d="M758,140 L980,140 L980,560 L758,560 Z"/>
+          </g>
+          <path class="pig__outline" d="M66,296 C84,262 112,244 150,236 C176,228 196,224 216,214 L238,176 C256,164 270,178 264,206 L272,214 C420,186 640,180 822,206 C880,216 906,246 904,290 C930,276 944,300 922,312 C904,350 890,395 882,430 L884,520 C884,536 858,538 856,520 L850,440 C836,422 816,416 780,420 C700,446 520,452 382,440 C342,446 332,472 332,520 C332,536 306,538 304,520 L300,440 C270,422 232,410 192,402 C150,396 112,382 86,352 C70,340 62,330 62,314 C62,306 64,300 66,296 Z"/>
+          <circle class="pig__eye" cx="158" cy="268" r="5"/>
+          <path class="pig__outline" d="M82,318 C78,325 78,333 82,340"/>
+          <g class="pig__labels" aria-hidden="true">
+            <text x="327" y="270">1</text><text x="570" y="268">2</text><text x="570" y="392">3</text><text x="327" y="395">4</text><text x="830" y="320">5</text>
+          </g>
+        </svg>
+        <figcaption class="pig__hint" data-pig-hint>Schopf, Karree, Bauch, Schulter, Schlögel</figcaption>
+      </figure>
+      <ol class="cutlist" data-cutlist>
+        <li><button type="button" data-cut="schopf"><span class="num">1</span><span class="cutlist__name">Schopf</span><span class="cutlist__text">Schopfbraten mit Schwarte für den Sonntag, Schopfsteaks für den Griller.</span></button></li>
+        <li><button type="button" data-cut="karree"><span class="num">2</span><span class="cutlist__name">Karree</span><span class="cutlist__text">Kotelett und Karree, mit oder ohne Knochen, Lungenbraten auf Wunsch.</span></button></li>
+        <li><button type="button" data-cut="bauch"><span class="num">3</span><span class="cutlist__name">Bauch &amp; Ripperl</span><span class="cutlist__text">Bauchfleisch für Ofen und Griller, Ripperl mariniert auf Wunsch.</span></button></li>
+        <li><button type="button" data-cut="schulter"><span class="num">4</span><span class="cutlist__name">Schulter</span><span class="cutlist__text">Schweinsbraten, Gulaschfleisch, Faschiertes frisch durch den Wolf.</span></button></li>
+        <li><button type="button" data-cut="schloegel"><span class="num">5</span><span class="cutlist__name">Schlögel &amp; Stelze</span><span class="cutlist__text">Schnitzelfleisch, Stelze, Selchfleisch und Speck für Knödel und Jause.</span></button></li>
+        <li class="cutlist__plain"><span class="num">+</span><span class="cutlist__name">Wurst &amp; Leberkäse</span><span class="cutlist__text">Hausmannskost für die Jause, im Ganzen oder aufgeschnitten.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Geschichte: wie „Our Story“ bei Flannery, Text links, Platz für das Familienfoto rechts -->
+  <section class="section story" id="geschichte" aria-labelledby="story-title">
+    <div class="story__text">
+      <p class="eyebrow">Seit 2008</p>
+      <h2 class="h2" id="story-title">Ein Stand in der Brigittenau, seit achtzehn Jahren dieselbe Familie.</h2>
+      <p class="lead">Der Hannovermarkt hat an die fünfundfünfzig Stände. Fleisch vom Schwein gibt es an einem: bei uns, Stand 90/91. Was wir verkaufen, haben wir am selben Morgen geschnitten. Wer etwas Bestimmtes will, ruft an, und es liegt zurück.</p>
+      <a class="btn btn--line" href="#zeiten">Wann wir da sind</a>
+    </div>
+    <div class="story__mark" aria-hidden="true">
+      <span class="story__year">2008</span>
+      <span class="story__place">Hannovermarkt · Stand 90/91 · Wien 20</span>
+    </div>
+  </section>
+
+  <!-- Drei Säulen, wie „Flannery Pillars“ -->
+  <section class="section pillars" aria-labelledby="pillars-title">
+    <h2 class="h2 h2--center" id="pillars-title">Drei Dinge, die bei uns anders sind.</h2>
+    <ul class="pillars__list">
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 28c0-9 7-16 16-16s16 7 16 16v2H8z" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="18" cy="24" r="1.8" fill="currentColor"/><circle cx="30" cy="24" r="1.8" fill="currentColor"/><path d="M19 32h10M14 34v6M34 34v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Nur Schwein</h3>
+        <p>Kein Rind, kein Huhn, kein Sortiment für alle. Ein Tier, und das können wir.</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36 30 12c3-3 8-3 10 0l-22 22H6z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M30 12l6 6" stroke="currentColor" stroke-width="2.2"/></svg>
+        <h3>Tagesfrisch geschnitten</h3>
+        <p>Kein Vakuum aus der Vorwoche. Geschnitten, wie du es willst, vor deinen Augen.</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6c4 6 10 10 10 18a10 10 0 0 1-20 0c0-4 2-7 4-9 0 3 2 5 4 5 0-6-2-10 2-14z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 42h24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <h3>Auf Bestellung</h3>
+        <p>Spanferkel, Stelzen, größere Mengen fürs Fest: ein Anruf, und es ist am Tag X fertig.</p>
+      </li>
+    </ul>
   </section>
 
   <section class="section section--dark" id="spanferkel" aria-labelledby="spanferkel-title">
     <div class="split">
       <div>
         <p class="eyebrow eyebrow--gold">Spanferkel</p>
-        <h2 class="display display--m" id="spanferkel-title">Ganzes Spanferkel.<br><em class="gold">Roh oder gebraten.</em></h2>
+        <h2 class="h2" id="spanferkel-title">Ganzes Spanferkel.<br><em class="gold">Roh oder gebraten.</em></h2>
         <p class="lead lead--light">Für Feste, Grillabende und Familienfeiern: das ganze Spanferkel roh zum Selbergrillen oder fertig gebraten mit knuspriger Kruste zum Abholen. Bitte ein paar Tage vorher bestellen.</p>
         <a class="btn btn--gold" href="#kontakt">Spanferkel bestellen</a>
       </div>
@@ -89,7 +157,7 @@
     <div class="split split--even">
       <div>
         <p class="eyebrow">Öffnungszeiten</p>
-        <h2 class="display display--m" id="zeiten-title">Wann wir da sind.</h2>
+        <h2 class="h2" id="zeiten-title">Wann wir da sind.</h2>
         <table class="hours" data-hours>
           <tbody>
             <tr data-day="1"><th scope="row">Montag</th><td>07:00 – 18:00</td></tr>
@@ -104,7 +172,7 @@
       </div>
       <div>
         <p class="eyebrow">Anfahrt</p>
-        <h2 class="display display--m">Hannovermarkt.</h2>
+        <h2 class="h2">Hannovermarkt.</h2>
         <p class="serif serif--big">Hannovermarkt, Stand 90/91<br>1200 Wien, Brigittenau</p>
         <p>U6 Jägerstraße oder Dresdner Straße, wenige Gehminuten. Der Markt liegt zwischen Hannovergasse und Othmargasse.</p>
         <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&query=Hannovermarkt+Stand+90+1200+Wien" target="_blank" rel="noopener">Route öffnen</a>
@@ -114,12 +182,12 @@
 
   <section class="section section--red" id="kontakt" aria-labelledby="kontakt-title">
     <p class="eyebrow eyebrow--light">Vorbestellung &amp; Fragen</p>
-    <h2 class="display display--m" id="kontakt-title">Ruf uns an.</h2>
+    <h2 class="h2" id="kontakt-title">Ruf uns an.</h2>
     <p class="lead lead--light lead--center">Spanferkel, größere Mengen für Feste oder ein bestimmtes Stück: ein Anruf genügt, wir legen es dir zurück.</p>
     <p class="phone" data-phone-text>Telefonnummer folgt</p>
     <div class="actions actions--center">
-      <a class="btn btn--light" href="#" data-phone-link hidden>Anrufen</a>
-      <a class="btn btn--line btn--line-light" href="#zeiten">Öffnungszeiten</a>
+      <a class="btn btn--cream" href="#" data-phone-link hidden>Anrufen</a>
+      <a class="btn btn--ghost" href="#zeiten">Öffnungszeiten</a>
     </div>
   </section>
 </main>

@@ -1,21 +1,10 @@
-# Fleischerei Guskic: neue Website auf GitHub und Vercel
+# Upload F2: Fleischerei Guskic, Neuaufbau nach Flannery-Vorbild
 
-Eigener Code (Vite), kein Webflow. 20 Dateien in diesem Ordner (ohne diese Anleitung).
+Was drin ist: neuer Start (Satz auf Rot), Siegel-Leiste, Schnittplan Schwein zum Antippen, Geschichte „Seit 2008“, drei Säulen, Spanferkel, Zeiten, Anruf. Dazu README mit allem, was vom Betrieb noch fehlt.
 
-## 1. Neues Repo auf GitHub (Safari, Konto Lazoooisbackk)
-1. https://github.com/new öffnen.
-2. Repository name: `fleischerei-guskic`. Public. Nichts anhaken. „Create repository“.
-3. Auf der leeren Repo-Seite: „uploading an existing file“ anklicken (oder Add file → Upload files).
-4. Im Finder diesen Ordner öffnen, alle Einträge markieren (Cmd+A, die Datei `.gitignore` ist unsichtbar, das ist egal) und ins Browserfenster ziehen.
-5. Nachricht: `Fleischerei Guskic: erste Version` → „Commit changes“.
+1. https://github.com/Lazoooisbackk/Fleischerei-Guskic → **Add file → Upload files**.
+2. Im Finder alle Einträge dieses Ordners markieren (Cmd+A) und ins Browserfenster ziehen.
+3. Nachricht: `Neuaufbau: Satz, Schnittplan, Geschichte, Säulen` → **Commit changes**.
+4. Vercel baut von selbst. Mir „hab“ schreiben, ich prüfe live.
 
-## 2. Vercel (Safari, Konto lazar1)
-1. https://vercel.com/new öffnen.
-2. Bei „Import Git Repository“ das Repo `fleischerei-guskic` wählen → „Import“.
-3. Framework Preset: Vite (wird erkannt). Nichts ändern. „Deploy“.
-4. Nach etwa einer Minute steht die Adresse da, z. B. `fleischerei-guskic.vercel.app`. Mir die Adresse schicken, ich prüfe live.
-
-## Noch offen (vom Papa)
-- Telefonnummer des Stands (kommt in `src/main.js` bei `PHONE` und ins Impressum).
-- Impressum: Firmenbuchnummer, UID, vertretungsbefugte Person, E-Mail.
-- Echte Fotos vom Stand (die Seite kommt ohne Fotos aus, mit Fotos wird sie stärker; keine KI-Bilder von Fleisch).
+Dateien (5): index.html, README.md, src/style.css, src/main.js, public/og.jpg
