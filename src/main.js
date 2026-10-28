@@ -8,6 +8,7 @@ const HOURS = { 1: [7, 18], 2: [7, 18], 3: [7, 18], 4: [7, 18], 5: [7, 18], 6: [
 const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 const hh = (h) => `${String(h).padStart(2, '0')}:00`;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const narrow = matchMedia('(max-width: 860px)');
 
 /* Jetzt in Wien */
 function viennaNow() {
@@ -41,8 +42,14 @@ if (PHONE && phoneText && phoneLink) {
   phoneLink.href = `tel:${PHONE}`; phoneLink.hidden = false;
 }
 
+/* Höhe der Kopfzeile als CSS-Variable (das Schweinderl bleibt darunter stehen) */
+const top = document.querySelector('.top');
+const setTopH = () => { if (top) document.documentElement.style.setProperty('--top-h', `${top.offsetHeight}px`); };
+setTopH();
+window.addEventListener('resize', setTopH, { passive: true });
+
 /* Der Name schrumpft beim Scrollen in die linke obere Ecke und bleibt dort stehen */
-const hero = document.querySelector('[data-hero]'), stage = hero && hero.querySelector('.hero__stage'), heroTitle = document.querySelector('[data-hero-title]'), top = document.querySelector('.top');
+const hero = document.querySelector('[data-hero]'), stage = hero && hero.querySelector('.hero__stage'), heroTitle = document.querySelector('[data-hero-title]');
 if (hero && stage && heroTitle && top && !reduce) {
   document.body.classList.add('has-dock');
   let s = 1, dockX = 0, dockY = 0, docked = false;
@@ -81,37 +88,58 @@ if (burger && nav) {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
 
-/* Schnittplan: Stück im Bild und in der Liste gehören zusammen */
+/* Schnittplan: das Schweinderl bleibt stehen, das Stück in der Mitte des Fensters leuchtet auf.
+   Maus/Finger/Tastatur auf einer Fläche zeigt sie sofort; Klick oder Enter scrollt zum Text. */
 const pig = document.querySelector('[data-pig]'), list = document.querySelector('[data-cutlist]');
 if (pig && list) {
-  const regions = [...pig.querySelectorAll('[data-cut]')], buttons = [...list.querySelectorAll('button[data-cut]')], hint = pig.querySelector('[data-pig-hint]');
-  const names = Object.fromEntries(buttons.map((b) => [b.dataset.cut, b.querySelector('.cutlist__name').textContent]));
-  let current = null;
-  const set = (cut) => {
-    current = cut;
+  const regions = [...pig.querySelectorAll('[data-cut]')], items = [...list.querySelectorAll('li[data-cut]')];
+  const hint = pig.querySelector('[data-pig-hint]'), no = pig.querySelector('[data-pig-no]');
+  const info = Object.fromEntries(items.map((li) => [li.dataset.cut, { name: li.querySelector('.cutlist__name').textContent, no: li.querySelector('.cutlist__no').textContent }]));
+  let byScroll = items[0].dataset.cut, hover = null;
+  const paint = () => {
+    const cut = hover || byScroll;
     regions.forEach((r) => r.classList.toggle('is-on', r.dataset.cut === cut));
-    buttons.forEach((b) => { const on = b.dataset.cut === cut; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
-    if (hint) hint.textContent = cut ? names[cut] : 'Schopf, Karree, Bauch, Schulter, Schlögel';
+    items.forEach((li) => li.classList.toggle('is-on', li.dataset.cut === cut));
+    if (hint && info[cut]) { hint.textContent = info[cut].name; no.textContent = info[cut].no; }
   };
+  const onScroll = () => {
+    /* Am Handy steht das Schweinderl oben: die Ziellinie liegt dann unter ihm, sonst in der Fenstermitte */
+    const line = narrow.matches ? (pig.getBoundingClientRect().bottom + window.innerHeight) / 2 : window.innerHeight * 0.5;
+    let best = byScroll, bestD = Infinity;
+    items.forEach((li) => { const r = li.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - line); if (d < bestD) { bestD = d; best = li.dataset.cut; } });
+    if (best !== byScroll) { byScroll = best; paint(); }
+  };
+  const goTo = (cut) => { const li = items.find((l) => l.dataset.cut === cut); if (!li) return; hover = null; byScroll = cut; paint(); li.scrollIntoView({ block: narrow.matches ? 'end' : 'center', behavior: reduce ? 'auto' : 'smooth' }); };
   regions.forEach((r) => {
-    r.addEventListener('pointerenter', () => set(r.dataset.cut));
-    r.addEventListener('click', () => { set(r.dataset.cut); buttons.find((b) => b.dataset.cut === r.dataset.cut)?.focus({ preventScroll: true }); });
+    r.addEventListener('pointerenter', () => { hover = r.dataset.cut; paint(); });
+    r.addEventListener('focus', () => { hover = r.dataset.cut; paint(); });
+    r.addEventListener('blur', () => { hover = null; paint(); });
+    r.addEventListener('click', () => goTo(r.dataset.cut));
+    r.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(r.dataset.cut); } });
   });
-  pig.addEventListener('pointerleave', () => { if (!document.activeElement?.closest('[data-cutlist]')) set(null); });
-  buttons.forEach((b) => {
-    b.setAttribute('aria-pressed', 'false');
-    b.addEventListener('pointerenter', () => set(b.dataset.cut));
-    b.addEventListener('focus', () => set(b.dataset.cut));
-    b.addEventListener('click', () => set(current === b.dataset.cut && b.matches(':hover') ? b.dataset.cut : b.dataset.cut));
-  });
-  list.addEventListener('pointerleave', () => { if (!list.contains(document.activeElement)) set(null); });
-  list.addEventListener('focusout', (e) => { if (!list.contains(e.relatedTarget)) set(null); });
+  pig.addEventListener('pointerleave', () => { hover = null; paint(); });
+  paint(); onScroll();
+  window.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 }
 
-/* Weiches Einblenden beim Scrollen */
+/* Werkstücke gehen beim Scrollen ein wenig langsamer mit (Tiefe) */
+const floats = [...document.querySelectorAll('[data-float]')];
+if (floats.length && !reduce) {
+  const move = () => {
+    const mid = window.innerHeight / 2;
+    floats.forEach((el) => { const r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > window.innerHeight + 200) return; el.style.transform = `translate3d(0, ${((r.top + r.height / 2 - mid) * Number(el.dataset.float)).toFixed(1)}px, 0)`; });
+  };
+  move();
+  window.addEventListener('scroll', () => requestAnimationFrame(move), { passive: true });
+  window.addEventListener('resize', move, { passive: true });
+}
+
+/* Weiches Einblenden beim Scrollen; die Stempel werden „aufgedrückt“ */
 if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.claim > *:not(.blobs):not(.seal), .numbers li, .section__head, .cuts__grid, .media, .steps, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
+  document.querySelectorAll('.claim__text > *, .section__head > *, .plate, .slip, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
+  document.querySelectorAll('.stamp').forEach((n) => { n.classList.add('reveal--stamp'); io.observe(n); });
 }
 
 document.querySelectorAll('[data-year]').forEach((y) => { y.textContent = String(new Date().getFullYear()); });
