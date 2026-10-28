@@ -51,6 +51,8 @@
 
   <!-- Der Satz, wie bei Apple: groß, mittig, viel Luft. Darunter drei Glas-Karten. -->
   <section class="claim" aria-labelledby="claim-title">
+    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="seal-ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="100" cy="100" r="46" fill="none" stroke="currentColor" stroke-width="1.5"/><text class="seal__text"><textPath href="#seal-ring" startOffset="0">Nur Schwein · Hannovermarkt · Seit 2008 · Stand 90/91 · </textPath></text><text class="seal__g" x="100" y="118" text-anchor="middle">G</text></svg>
     <p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Öffnungszeiten unten</span></p>
     <h2 class="claim__title" id="claim-title">Nur Schwein.<br>Seit 2008 am Hannovermarkt.</h2>
     <p class="claim__lead">Der einzige Stand am Markt mit Schweinefleisch. Jedes Gusto-Stück am selben Morgen geschnitten, ganzes Spanferkel auf Bestellung.</p>
@@ -61,12 +63,20 @@
     </ul>
   </section>
 
+  <!-- Drei Zahlen, die den Stand erklären -->
+  <section class="numbers" aria-label="Zahlen">
+    <ul>
+      <li><span class="numbers__n">1</span><span class="numbers__t">Stand am Markt<br>mit Schweinefleisch</span></li>
+      <li><span class="numbers__n">55</span><span class="numbers__t">Stände am<br>Hannovermarkt</span></li>
+      <li><span class="numbers__n">18</span><span class="numbers__t">Jahre dieselbe<br>Familie, Stand 90/91</span></li>
+    </ul>
+  </section>
+
   <!-- Vom Schweinderl: Schnittplan, Stück antippen -->
   <section class="section cuts" id="stueck" aria-labelledby="cuts-title">
-    <div class="section__head section__head--center">
-      <p class="eyebrow">Vom Schweinderl</p>
-      <h2 class="h2" id="cuts-title">Jedes Gusto-Stück. Tagesfrisch.</h2>
-      <p class="sub">Tipp auf ein Stück. Was nicht da ist, schneiden wir dir zu.</p>
+    <div class="section__head section__head--split">
+      <div><p class="eyebrow">Vom Schweinderl</p><h2 class="h2" id="cuts-title">Jedes Gusto-Stück.<br>Tagesfrisch.</h2></div>
+      <p class="sub">Tipp auf ein Stück. Was nicht da ist, schneiden wir dir zu. Mariniert, gewolft oder im Ganzen.</p>
     </div>
     <div class="cuts__grid glass glass--plate">
       <figure class="pig" data-pig>
@@ -129,13 +139,15 @@
   </section>
 
   <!-- Zeiten und Anfahrt als zwei Glas-Karten -->
-  <section class="section" id="zeiten" aria-labelledby="zeiten-title">
+  <section class="section zeiten" id="zeiten" aria-labelledby="zeiten-title">
     <div class="section__head section__head--center">
       <p class="eyebrow">Öffnungszeiten</p>
       <h2 class="h2" id="zeiten-title">Wann wir da sind.</h2>
     </div>
+    <div class="blobs blobs--soft" aria-hidden="true"><i></i><i></i></div>
     <div class="twin">
       <div class="glass twin__card">
+        <p class="status status--card" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Öffnungszeiten</span></p>
         <table class="hours" data-hours>
           <tbody>
             <tr data-day="1"><th scope="row">Montag</th><td>07:00 – 18:00</td></tr>

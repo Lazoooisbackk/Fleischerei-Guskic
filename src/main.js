@@ -27,9 +27,9 @@ function status() {
   }
   return { open: false, text: 'Geschlossen' };
 }
-const statusEl = document.querySelector('[data-status]');
-if (statusEl) {
-  const paint = () => { const s = status(); statusEl.classList.toggle('is-open', s.open); statusEl.querySelector('[data-status-text]').textContent = s.text; };
+const statusEls = document.querySelectorAll('[data-status]');
+if (statusEls.length) {
+  const paint = () => { const s = status(); statusEls.forEach((el) => { el.classList.toggle('is-open', s.open); el.querySelector('[data-status-text]').textContent = s.text; }); };
   paint(); setInterval(paint, 60000);
 }
 { const { day } = viennaNow(); document.querySelectorAll('[data-hours] tr').forEach((tr) => tr.classList.toggle('is-today', Number(tr.dataset.day) === day)); }
@@ -67,7 +67,7 @@ if (hero && stage && heroTitle && top && !reduce) {
   };
   measure(); update();
   window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
-  window.addEventListener('resize', () => { measure(); update(); }, { passive: true });
+  window.addEventListener('resize', () => { measure(); if (docked) { docked = false; update(); } else update(); }, { passive: true });
   document.fonts.ready.then(() => { measure(); update(); });
   heroTitle.addEventListener('click', () => { if (docked) window.scrollTo({ top: 0, behavior: 'smooth' }); });
 }
@@ -111,7 +111,7 @@ if (pig && list) {
 /* Weiches Einblenden beim Scrollen */
 if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.claim > *, .section__head, .cuts__grid, .media, .steps, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
+  document.querySelectorAll('.claim > *:not(.blobs):not(.seal), .numbers li, .section__head, .cuts__grid, .media, .steps, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
 }
 
 document.querySelectorAll('[data-year]').forEach((y) => { y.textContent = String(new Date().getFullYear()); });
