@@ -1,3 +1,3 @@
-# Upload F3: Start-Bereich = Name groß auf Rot
+# Upload F4: Start = nur der Name, Blockschrift rot auf Weiß
 
-Zwei Dateien: index.html, src/style.css. Auf GitHub (Fleischerei-Guskic) Add file → Upload files, beide reinziehen (src als Ordner), Commit. Dann mir „hab“ schreiben, ich starte den Build selbst.
+Vier Dateien: index.html, src/style.css, src/main.js, public/og.jpg. Alle vier (src und public als Ordner) auf GitHub reinziehen, Commit, dann „hab“.

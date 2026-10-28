@@ -31,21 +31,14 @@ const statusEl = document.querySelector('[data-status]');
 if (statusEl) {
   const paint = () => { const s = status(); statusEl.classList.toggle('is-open', s.open); statusEl.querySelector('[data-status-text]').textContent = s.text; };
   paint(); setInterval(paint, 60000);
-  const { day } = viennaNow();
-  document.querySelectorAll('[data-hours] tr').forEach((tr) => tr.classList.toggle('is-today', Number(tr.dataset.day) === day));
 }
+{ const { day } = viennaNow(); document.querySelectorAll('[data-hours] tr').forEach((tr) => tr.classList.toggle('is-today', Number(tr.dataset.day) === day)); }
 
 /* Telefon */
 const phoneText = document.querySelector('[data-phone-text]'), phoneLink = document.querySelector('[data-phone-link]');
 if (PHONE && phoneText && phoneLink) {
   phoneText.textContent = PHONE.replace(/^\+43(\d{3})(\d{3})(\d{2})(\d{2})$/, '+43 $1 $2 $3 $4');
   phoneLink.href = `tel:${PHONE}`; phoneLink.hidden = false;
-}
-
-/* Kopfzeile: über dem roten Start hell, sonst dunkel */
-const top = document.querySelector('.top'), hero = document.querySelector('.hero');
-if (top && hero && 'IntersectionObserver' in window) {
-  new IntersectionObserver(([e]) => top.classList.toggle('is-red', e.isIntersecting), { rootMargin: '-56px 0px 0px 0px', threshold: 0 }).observe(hero);
 }
 
 /* Menü am Handy */
