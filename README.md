@@ -1,17 +1,22 @@
 # Fleischerei Guskic – Website
 
 Eigener Code, ohne Baukasten. Vite, selbst gehostete Schriften (Bebas Neue, Fraunces, Inter), keine Cookies, keine fremden Dienste.
-Aufbau (Stand 28.10.2026, Fassung „Das Papier“): Metzgerpapier als Grund (Körnung `public/noise.png`), Rot als Stempelfarbe, drei freigestellte Werkstücke (`public/img/`: Packerl, Beil, Schnur).
-Start = der Name in Blockschrift, der beim Scrollen in die linke obere Ecke wandert → Satz mit Packerl und Siegel → drei Stempel → Schnittplan: das Schweinderl bleibt stehen, die Stücke ziehen vorbei und leuchten auf → Spanferkel (dunkel, Zeichnung + Bestellschein) → Seit 2008 (Stand-Karte + Schnur) → Zeiten und Anfahrt als Papier-Karten → Anruf.
-Der Stempel-Look kommt von einem SVG-Filter (`#stamp` oben in `index.html`), nicht von Bildern.
+Aufbau (Stand 28.10.2026, Fassung 10): Metzgerpapier als Grund (Körnung `public/noise.png`), Rot als Stempelfarbe, keine KI-Bilder.
+Start = der Name in Blockschrift, der beim Scrollen in die linke obere Ecke wandert → Satz + Tafel „Heute am Stand“ → drei Stempel → Schnittplan mit zehn Stücken (das Schwein bleibt stehen, die Stücke ziehen vorbei) → Spanferkel kurz → Zeiten und Anfahrt → Anruf.
+Der Stempel-Look kommt von einem SVG-Filter (`#stamp` oben in `index.html`). Das Schwein ist eine eigene SVG-Zeichnung (kein Bild).
+
+## Tafel „Heute am Stand“ (Gerüst, Stand 28.10.)
+Daten in `public/stand.json`: `updated` (Zeitpunkt), `items` mit `name`, `price` (Euro pro Kilo, `null` = kein Preis) und `da` (true/false). Die Startseite liest die Datei und zeigt die Liste; durchgestrichen = heute aus. Die zwölf Stücke in der Datei sind nur Platzhalter: **die echte Liste und die Kilopreise kommen vom Betrieb.**
+Nächster Schritt: eine geheime Handy-Seite, auf der morgens „da / aus“ und Preise angetippt werden (schreibt dann statt der Datei in einen Speicher auf Vercel).
 
 Live: https://fleischerei-guskic.vercel.app (Repo Lazoooisbackk/Fleischerei-Guskic, Vercel baut bei jedem Commit auf main).
 
 ## Was noch fehlt (vom Betrieb)
 - **Telefonnummer:** in `src/main.js` bei `PHONE` eintragen, Format `+43…` ohne Leerzeichen. Dann erscheint der Anruf-Knopf von selbst. Auch in `impressum.html` und `datenschutz.html` eintragen.
 - **Impressum:** Firmenbuchnummer, UID, vertretungsbefugte Person, E-Mail (gelber Kasten in `impressum.html`); danach die Zeile `<meta name="robots" content="noindex">` dort entfernen.
-- **Fotos:** zwei Bildplätze sind vorbereitet: `.plate--spanferkel` (4:3, im dunklen Block, zeigt bis dahin die Zeichnung) und `.plate--markt` (4:5, „Seit 2008“, zeigt bis dahin die Standnummer). Fotos nach `public/img/` legen (JPG, 2000 px breit, unter 400 KB) und im HTML am jeweiligen `<figure class="plate …">` die Klasse `has-img` plus `style="--img:url('/img/datei.jpg')"` setzen; Zeichnung bzw. Stempel verschwinden dann von selbst. Echte Fotos vom Stand, keine KI-Bilder von Fleisch.
-- **Werkstücke** (`public/img/paket*.webp`, `beil-*.webp`, `garn*.webp`) sind KI-Studiobilder von Gegenständen (kein Fleisch, kein Stand) und werden nur als Schmuck verwendet.
+- **Fotos:** ein Foto pro Stück, alle auf demselben Papier auf der Theke, von oben, gleiches Licht (einmalig). Dazu ein Foto vom Stand. Kommen in die Tafel und neben das Spanferkel. Keine KI-Bilder.
+- **Zu bestätigen:** „einziger Stand am Markt mit Schweinefleisch“, „55 Stände“, „seit 2008“, „KG“, und ob das Spanferkel vorher angemeldet werden muss.
+- **Aufräumen im Repo:** `public/img/*.webp` (KI-Bilder aus Fassung 9) werden nicht mehr verwendet und können gelöscht werden.
 - **Öffnungszeiten** stehen zweimal: in `index.html` (Tabelle) und in `src/main.js` (`HOURS`, für „Jetzt geöffnet“). Beide ändern.
 
 ## Arbeiten

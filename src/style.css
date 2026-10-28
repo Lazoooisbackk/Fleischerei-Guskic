@@ -1,6 +1,6 @@
-/* Fleischerei Guskic, Fassung 9 „Das Papier“: Metzgerpapier als Grund, Rot als Stempelfarbe, drei echte Werkstücke
-   (Packerl, Beil, Schnur) als Freisteller, das Schweinderl als technische Zeichnung, die beim Scrollen stehen bleibt.
-   Der Start ist der Name in Blockschrift, der beim Scrollen in die Ecke wandert (unverändert). */
+/* Fleischerei Guskic, Fassung 10: Metzgerpapier als Grund, Rot als Stempelfarbe, keine KI-Bilder.
+   Nach dem Namen die Tafel „Heute am Stand“ (stand.json), drei Stempel, Schnittplan mit zehn Stücken (das Schwein bleibt
+   beim Scrollen stehen), Spanferkel kurz, Zeiten, Anruf. Der Start ist der Name, der beim Scrollen in die Ecke wandert. */
 :root {
   --paper: #F4EEE2; --paper-2: #FBF8F1; --paper-3: #EAE2D3; --cream: #F6F1E8; --ink: #1C1A19; --red: #7A1424; --red-deep: #5E0F1C; --gold: #D9A441;
   --line: rgba(28, 26, 25, .14); --muted: rgba(28, 26, 25, .64); --cream-70: rgba(246, 241, 232, .72);
@@ -69,7 +69,6 @@ img { display: block; max-width: 100%; height: auto; }
 .eyebrow--light { color: var(--cream-70); }
 .h2 { font: 500 clamp(36px, 4.8vw, 78px)/1.02 var(--serif); letter-spacing: -.02em; text-wrap: balance; }
 .h2 em { font-style: italic; font-weight: 400; color: var(--red); }
-.section--dark .h2 em, .section--red .h2 em { color: var(--gold); }
 .section--red .h2 em { color: var(--cream); }
 .sub { max-width: 56ch; margin-top: 18px; font-size: clamp(17px, 1.3vw, 21px); line-height: 1.5; letter-spacing: -.01em; color: var(--muted); text-wrap: pretty; }
 .sub--light { color: var(--cream-70); }
@@ -90,10 +89,6 @@ img { display: block; max-width: 100%; height: auto; }
 /* Papier-Karte */
 .card { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 1px 0 rgba(255, 255, 255, .7) inset, 0 28px 50px -40px rgba(28, 26, 25, .45); }
 
-/* Werkstücke: freigestellte Fotos, die beim Scrollen ein bisschen langsamer mitgehen (src/main.js) */
-.object { pointer-events: none; margin: 0; }
-.object img, img.object { filter: drop-shadow(0 26px 28px rgba(28, 26, 25, .22)); will-change: transform; }
-
 /* Der Satz */
 .claim { position: relative; max-width: 1240px; margin: 0 auto; padding: clamp(40px, 8vw, 140px) var(--pad) clamp(40px, 6vw, 100px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
 .status { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 26px; }
@@ -101,16 +96,26 @@ img { display: block; max-width: 100%; height: auto; }
 .status.is-open .status__dot { background: #2E8B57; box-shadow: 0 0 0 4px rgba(46, 139, 87, .16); }
 .claim__title { max-width: 14ch; }
 .lead { max-width: 50ch; margin-top: 22px; font-size: clamp(17px, 1.35vw, 22px); line-height: 1.5; letter-spacing: -.01em; color: var(--muted); text-wrap: pretty; }
-.object--paket { position: relative; width: 100%; max-width: 600px; justify-self: end; }
-.object--paket .seal { position: absolute; left: -4%; bottom: 4%; width: clamp(104px, 12vw, 180px); height: auto; color: var(--red); animation: seal-spin 40s linear infinite; }
-.seal__text { font: 600 15.5px var(--sans); letter-spacing: .14em; text-transform: uppercase; fill: currentColor; }
-.seal__g { font: 400 64px var(--display); fill: currentColor; }
-@keyframes seal-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .object--paket .seal { animation: none; } }
 @media (max-width: 860px) {
   .claim { grid-template-columns: minmax(0, 1fr); }
-  .object--paket { max-width: 440px; justify-self: center; margin-top: 10px; }
 }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Tafel „Heute am Stand“ */
+.board { padding: clamp(20px, 2.4vw, 32px); align-self: center; }
+.board__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-bottom: 12px; }
+.board__title { font: 400 clamp(30px, 2.6vw, 40px)/1 var(--display); letter-spacing: .04em; color: var(--red); filter: url(#stamp); }
+.board__time { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.board__time .status__dot { background: #2E8B57; box-shadow: 0 0 0 4px rgba(46, 139, 87, .16); }
+.board__table { width: 100%; border-collapse: collapse; font-size: clamp(15px, 1.1vw, 17px); }
+.board__table td { padding: 10px 0; border-top: 1px dashed var(--line); vertical-align: baseline; }
+.board__table td:nth-child(2) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+.board__table td:last-child { width: 1%; padding-left: 14px; text-align: right; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.board__table tr.is-aus td { color: var(--muted); }
+.board__table tr.is-aus td:first-child { text-decoration: line-through; text-decoration-color: var(--red); }
+.board__table tr.is-aus td:last-child { color: var(--red); }
+.board--noprice .board__table td:nth-child(2) { display: none; }
+.board__note { margin-top: 14px; font-size: 13px; color: var(--muted); }
 
 /* Drei Stempel */
 .stamps { padding: clamp(30px, 5vw, 80px) var(--pad) clamp(60px, 8vw, 120px); overflow: clip; }
@@ -136,9 +141,6 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Schnittplan: das Schweinderl bleibt stehen (sticky), die Stücke ziehen vorbei */
 .cuts { padding-top: clamp(40px, 6vw, 90px); }
-.cuts__aside { display: grid; justify-items: start; gap: 12px; }
-.object--beil { width: clamp(200px, 22vw, 340px); justify-self: end; margin: 0 -3% 12px 0; }
-@media (max-width: 760px) { .object--beil { width: 180px; margin-top: -10px; } }
 .cuts__grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
 .pig { position: sticky; top: calc(var(--top-h) + 24px); display: grid; gap: 14px; padding: clamp(16px, 2.2vw, 30px); background: var(--grain) repeat 0 0 / 96px 96px, var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 28px 50px -40px rgba(28, 26, 25, .45); z-index: 2; }
 .pig svg { width: 100%; height: auto; overflow: visible; }
@@ -151,7 +153,7 @@ img { display: block; max-width: 100%; height: auto; }
 .pig__hint { display: flex; align-items: baseline; gap: 12px; min-height: 1.4em; font: 500 clamp(18px, 1.5vw, 22px)/1.2 var(--serif); }
 .pig__no { font: italic 500 14px var(--serif); color: var(--red); }
 .cutlist { list-style: none; padding: 0; display: grid; }
-.cutlist li { min-height: 42vh; display: grid; align-content: center; gap: 10px; padding: 28px 0; border-top: 1px solid var(--line); opacity: .38; transition: opacity .45s ease; }
+.cutlist li { min-height: 26vh; display: grid; align-content: center; gap: 10px; padding: 28px 0; border-top: 1px solid var(--line); opacity: .38; transition: opacity .45s ease; }
 .cutlist li:first-child { border-top: 0; }
 .cutlist li.is-on { opacity: 1; }
 .cutlist__no { font: italic 500 15px var(--serif); color: var(--red); }
@@ -163,41 +165,11 @@ img { display: block; max-width: 100%; height: auto; }
   .pig::after { content: ''; position: absolute; left: calc(-1 * var(--pad)); right: calc(-1 * var(--pad)); top: -12px; bottom: -8px; z-index: -1; background: var(--grain) repeat 0 0 / 96px 96px, var(--paper); }
   .pig__hint { font-size: 17px; }
   .cutlist { padding-top: 10px; }
-  .cutlist li { min-height: 40vh; padding: 20px 0; }
+  .cutlist li { min-height: 24vh; padding: 16px 0; }
 }
 
-/* Bildplätze: bis die Fotos da sind, Zeichnung und Stempel (README). Mit has-img zeigen sie das Foto. */
-.plate { position: relative; border-radius: var(--radius); overflow: hidden; display: grid; place-items: center; background-size: cover; background-position: center; }
-.plate.has-img { background-image: var(--img); }
-.plate.has-img > :not(.object) { display: none; }
-.plate--spanferkel { aspect-ratio: 4 / 3; background: var(--grain) repeat 0 0 / 96px 96px, var(--red-deep); color: var(--cream); padding: 8%; align-content: center; gap: 18px; }
-.plate--spanferkel svg { width: 100%; height: auto; }
-.plate__pig { fill: none; stroke: currentColor; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
-.plate__eye { fill: currentColor; }
-.plate__spit { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 14 10; }
-.plate__line { font: italic 500 clamp(16px, 1.4vw, 20px) var(--serif); color: var(--cream-70); }
-.plate--markt { aspect-ratio: 4 / 5; overflow: visible; container-type: inline-size; background: var(--grain) repeat 0 0 / 96px 96px, var(--paper-2); border: 1px solid var(--line); box-shadow: 0 28px 50px -40px rgba(28, 26, 25, .45); align-content: center; gap: 8px; padding: 10%; color: var(--red); text-align: center; }
-.plate__small { font: italic 500 clamp(15px, 1.3vw, 19px) var(--serif); }
-.plate__big { font: 400 clamp(96px, 14vw, 220px)/.9 var(--display); letter-spacing: .02em; filter: url(#stamp); font-size: 36cqw; }
-.object--garn { position: absolute; right: -14%; bottom: -12%; width: 46%; }
-@media (max-width: 860px) { .object--garn { right: -4%; bottom: -10%; width: 44%; } }
-
-/* Spanferkel */
-.section--dark { background: var(--grain) repeat 0 0 / 96px 96px, var(--ink); color: var(--cream); }
-.feature { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: stretch; }
-@media (max-width: 860px) { .feature { grid-template-columns: minmax(0, 1fr); } }
-.slip { position: relative; list-style: none; margin: 0; padding: clamp(22px, 2.6vw, 36px); background: var(--grain) repeat 0 0 / 96px 96px, var(--paper-2); color: var(--ink); border-radius: 4px; display: grid; align-content: center; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .8); -webkit-mask-image: radial-gradient(circle at 9px 0, transparent 7px, #000 7.5px); mask-image: radial-gradient(circle at 9px 0, transparent 7px, #000 7.5px); -webkit-mask-size: 18px 100%; mask-size: 18px 100%; }
-.slip li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; padding: 18px 0; border-top: 1px dashed var(--line); }
-.slip__head { display: flex !important; justify-content: space-between; border-top: 0 !important; padding-top: 10px !important; font: 600 12px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
-.slip__n { font: 400 32px/1 var(--display); color: var(--red); }
-.slip strong { display: block; font-weight: 600; margin-bottom: 3px; }
-.slip li > div > span { font-size: 14px; color: var(--muted); }
-.slip__cta { display: block !important; padding-top: 22px !important; }
-
-/* Seit 2008 */
-.story { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-@media (max-width: 860px) { .story { grid-template-columns: minmax(0, 1fr); } .plate--markt { width: 100%; max-width: 400px; justify-self: center; margin-bottom: 36px; } }
-.story .sub { margin-top: 18px; }
+/* Spanferkel: kurz, auf Papier, mit roter Linie links */
+.spanferkel__in { max-width: 1240px; margin: 0 auto; padding-left: clamp(20px, 3vw, 40px); border-left: 3px solid var(--red); }
 
 /* Zeiten und Anfahrt */
 .status--card { margin-bottom: 14px; }

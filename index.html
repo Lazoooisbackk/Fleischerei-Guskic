@@ -9,12 +9,12 @@
 <link rel="preload" href="/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fonts.css">
-<title>Fleischerei Guskic – Schweinefleisch und Spanferkel am Hannovermarkt, 1200 Wien</title>
-<meta name="description" content="Fleischerei Guskic am Hannovermarkt, Stand 90/91, 1200 Wien: seit 2008 der einzige Stand mit Schweinefleisch. Jedes Gusto-Stück frisch geschnitten, ganzes Spanferkel roh oder gebraten auf Bestellung.">
+<title>Fleischerei Guskic – Schweinefleisch am Hannovermarkt, 1200 Wien</title>
+<meta name="description" content="Fleischerei Guskic am Hannovermarkt, Stand 90/91, 1200 Wien: seit 2008 der einzige Stand am Markt mit Schweinefleisch. Heute am Stand, Schnittplan vom Kopf bis zu den Füßen, Spanferkel roh oder gebraten, Öffnungszeiten.">
 <link rel="canonical" href="https://fleischerei-guskic.vercel.app/">
 <meta property="og:type" content="business.business">
 <meta property="og:title" content="Fleischerei Guskic – Hannovermarkt, Wien">
-<meta property="og:description" content="Seit 2008 am Hannovermarkt, Stand 90/91. Nur Schwein, jedes Gusto-Stück frisch geschnitten.">
+<meta property="og:description" content="Seit 2008 am Hannovermarkt, Stand 90/91. Der einzige Stand am Markt mit Schweinefleisch.">
 <meta property="og:url" content="https://fleischerei-guskic.vercel.app/">
 <meta property="og:image" content="https://fleischerei-guskic.vercel.app/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -35,11 +35,11 @@
   <a class="brand" href="#top"><span class="brand__name">Guskic</span><span class="brand__sub">Fleischerei · Hannovermarkt</span></a>
   <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen"><span></span><span></span></button>
   <nav class="nav" id="nav" aria-label="Seitenbereiche">
-    <a href="#stueck">Vom Schweinderl</a>
+    <a href="#heute">Heute am Stand</a>
+    <a href="#stueck">Die Stücke</a>
     <a href="#spanferkel">Spanferkel</a>
-    <a href="#geschichte">Seit 2008</a>
     <a href="#zeiten">Öffnungszeiten</a>
-    <a class="nav__call" href="#kontakt">Vorbestellen</a>
+    <a href="#kontakt">Kontakt</a>
   </nav>
 </header>
 
@@ -52,18 +52,24 @@
     </div>
   </section>
 
-  <!-- Der Satz. Rechts das Packerl, darauf das Siegel. -->
-  <section class="claim" aria-labelledby="claim-title">
+  <!-- Der Satz, daneben die Tafel „Heute am Stand“ (Daten: public/stand.json, später die Handy-Seite) -->
+  <section class="claim" id="heute" aria-labelledby="claim-title">
     <div class="claim__text">
-      <p class="status" data-status><span class="status__dot" aria-hidden="true"></span><span data-status-text>Öffnungszeiten unten</span></p>
+      <p class="eyebrow">Hannovermarkt · Stand 90/91</p>
       <h2 class="h2 claim__title" id="claim-title">Nur Schwein.<br><em>Seit 2008</em> am Hannovermarkt.</h2>
-      <p class="lead">Der einzige Stand am Markt mit Schweinefleisch. Jedes Gusto-Stück am selben Morgen geschnitten, ganzes Spanferkel auf Bestellung, alles ins Papier gewickelt.</p>
-      <div class="actions"><a class="btn btn--red" href="#kontakt">Vorbestellen</a><a class="btn btn--line" href="#stueck">Vom Schweinderl</a></div>
+      <p class="lead">Der einzige Stand am Markt mit Schweinefleisch. Was heute da ist und was es kostet, steht auf der Tafel.</p>
     </div>
-    <figure class="object object--paket" aria-hidden="true">
-      <img src="/img/paket.webp" srcset="/img/paket-600.webp 600w, /img/paket.webp 1100w" sizes="(max-width: 860px) 90vw, 42vw" width="1100" height="881" alt="" decoding="async" data-float="0.07">
-      <svg class="seal" viewBox="0 0 200 200"><defs><path id="seal-ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><g filter="url(#stamp)"><circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="46" fill="none" stroke="currentColor" stroke-width="1.5"/><text class="seal__text"><textPath href="#seal-ring" startOffset="0">Nur Schwein · Hannovermarkt · Seit 2008 · Stand 90/91 · </textPath></text><text class="seal__g" x="100" y="118" text-anchor="middle">G</text></g></svg>
-    </figure>
+    <div class="board card" data-board hidden>
+      <div class="board__head">
+        <h3 class="board__title">Heute am Stand</h3>
+        <p class="board__time"><span class="status__dot" aria-hidden="true"></span><span data-board-time>Stand</span></p>
+      </div>
+      <table class="board__table">
+        <thead class="visually-hidden"><tr><th scope="col">Stück</th><th scope="col">Preis pro Kilo</th><th scope="col">Heute</th></tr></thead>
+        <tbody data-board-rows></tbody>
+      </table>
+      <p class="board__note">Preise pro Kilo. Was durchgestrichen ist, ist heute aus.</p>
+    </div>
   </section>
 
   <!-- Drei Stempel -->
@@ -75,81 +81,64 @@
     </ul>
   </section>
 
-  <!-- Vom Schweinderl: das Schweinderl bleibt stehen, die Stücke ziehen vorbei und leuchten auf -->
+  <!-- Die Stücke: das Schwein bleibt stehen, die Stücke ziehen vorbei und leuchten auf -->
   <section class="section cuts" id="stueck" aria-labelledby="cuts-title">
     <div class="section__head section__head--split">
-      <div><p class="eyebrow">Vom Schweinderl</p><h2 class="h2" id="cuts-title">Jedes Gusto-Stück.<br>Tagesfrisch.</h2></div>
-      <div class="cuts__aside">
-        <figure class="object object--beil" aria-hidden="true"><img src="/img/beil-700.webp" srcset="/img/beil-400.webp 400w, /img/beil-700.webp 700w" sizes="(max-width: 760px) 180px, 22vw" width="700" height="424" alt="" loading="lazy" decoding="async" data-float="0.06"></figure>
-        <p class="sub">Scroll durch die Stücke, das Schweinderl zeigt mit. Was nicht da ist, schneiden wir dir zu: mariniert, gewolft oder im Ganzen.</p>
-      </div>
+      <div><p class="eyebrow">Die Stücke</p><h2 class="h2" id="cuts-title">Vom Kopf<br>bis zu den Füßen.</h2></div>
+      <p class="sub">Scroll, das Schwein zeigt mit.</p>
     </div>
     <div class="cuts__grid">
       <figure class="pig" data-pig>
-        <svg viewBox="0 0 1000 600" role="img" aria-labelledby="pig-title" focusable="false">
-          <title id="pig-title">Schnittplan Schwein: Schopf, Karree, Bauch, Schulter, Schlögel</title>
-          <defs><clipPath id="pig-clip"><path d="M66,296 C84,262 112,244 150,236 C176,228 196,224 216,214 L238,176 C256,164 270,178 264,206 L272,214 C420,186 640,180 822,206 C880,216 906,246 904,290 C930,276 944,300 922,312 C904,350 890,395 882,430 L884,520 C884,536 858,538 856,520 L850,440 C836,422 816,416 780,420 C700,446 520,452 382,440 C342,446 332,472 332,520 C332,536 306,538 304,520 L300,440 C270,422 232,410 192,402 C150,396 112,382 86,352 C70,340 62,330 62,314 C62,306 64,300 66,296 Z"/></clipPath></defs>
+        <svg viewBox="0 0 1000 620" role="img" aria-labelledby="pig-title" focusable="false">
+          <title id="pig-title">Schnittplan Schwein: Kopf, Backe, Schopf, Schulter, Karree, Lungenbraten, Bauch, Schlögel, Stelze, Füße</title>
+          <defs><clipPath id="pig-clip"><path id="pig-sil" d="M74,292 C120,258 168,222 210,196 C218,164 240,120 272,102 C302,116 318,152 314,180 C350,164 390,158 430,156 C600,136 760,144 850,172 C870,180 882,190 888,198 C900,208 910,216 914,226 C936,290 936,372 908,436 C902,470 896,520 892,562 L892,580 L842,580 L846,562 C848,520 846,490 846,490 C842,470 838,460 836,456 C650,488 460,488 332,452 C328,490 324,530 322,562 L322,580 L268,580 L268,562 C262,520 256,480 258,436 C236,410 206,402 172,400 C130,396 100,382 70,360 C58,340 60,310 74,292 Z"/></clipPath></defs>
           <g class="pig__regions" clip-path="url(#pig-clip)">
-            <path data-cut="schopf" tabindex="0" role="button" aria-label="Schopf zeigen" d="M272,140 L382,140 L382,332 L272,332 Z"/>
-            <path data-cut="karree" tabindex="0" role="button" aria-label="Karree zeigen" d="M382,140 L758,140 L758,332 L382,332 Z"/>
-            <path data-cut="bauch" tabindex="0" role="button" aria-label="Bauch und Ripperl zeigen" d="M382,332 L758,332 L758,480 L382,480 Z"/>
-            <path data-cut="schulter" tabindex="0" role="button" aria-label="Schulter zeigen" d="M272,332 L382,332 L382,560 L272,560 Z"/>
-            <path data-cut="schloegel" tabindex="0" role="button" aria-label="Schlögel und Stelze zeigen" d="M758,140 L980,140 L980,560 L758,560 Z"/>
+            <path data-cut="kopf" tabindex="0" role="button" aria-label="Kopf zeigen" d="M40,80 L232,80 L232,335 L40,335 Z"/>
+            <path data-cut="backe" tabindex="0" role="button" aria-label="Backe zeigen" d="M40,335 L232,335 L232,440 L40,440 Z"/>
+            <path data-cut="schopf" tabindex="0" role="button" aria-label="Schopf zeigen" d="M232,80 L352,80 L352,320 L232,320 Z"/>
+            <path data-cut="schulter" tabindex="0" role="button" aria-label="Schulter zeigen" d="M232,320 L352,320 L352,472 L232,472 Z"/>
+            <path data-cut="karree" tabindex="0" role="button" aria-label="Karree zeigen" d="M352,80 L792,80 L792,300 L352,300 Z"/>
+            <path data-cut="lungenbraten" tabindex="0" role="button" aria-label="Lungenbraten zeigen" d="M560,300 L792,300 L792,332 L560,332 Z"/>
+            <path data-cut="bauch" tabindex="0" role="button" aria-label="Bauch und Ripperl zeigen" d="M352,300 L560,300 L560,332 L792,332 L792,472 L352,472 Z"/>
+            <path data-cut="schloegel" tabindex="0" role="button" aria-label="Schlögel zeigen" d="M792,80 L980,80 L980,472 L792,472 Z"/>
+            <path data-cut="stelze" tabindex="0" role="button" aria-label="Stelze zeigen" d="M232,472 L352,472 L352,548 L232,548 Z M792,472 L980,472 L980,548 L792,548 Z"/>
+            <path data-cut="fuesse" tabindex="0" role="button" aria-label="Füße zeigen" d="M232,548 L352,548 L352,600 L232,600 Z M792,548 L980,548 L980,600 L792,600 Z"/>
           </g>
-          <path class="pig__outline" d="M66,296 C84,262 112,244 150,236 C176,228 196,224 216,214 L238,176 C256,164 270,178 264,206 L272,214 C420,186 640,180 822,206 C880,216 906,246 904,290 C930,276 944,300 922,312 C904,350 890,395 882,430 L884,520 C884,536 858,538 856,520 L850,440 C836,422 816,416 780,420 C700,446 520,452 382,440 C342,446 332,472 332,520 C332,536 306,538 304,520 L300,440 C270,422 232,410 192,402 C150,396 112,382 86,352 C70,340 62,330 62,314 C62,306 64,300 66,296 Z"/>
-          <circle class="pig__eye" cx="158" cy="268" r="5"/>
-          <path class="pig__outline" d="M82,318 C78,325 78,333 82,340"/>
+          <use href="#pig-sil" class="pig__outline"/>
+          <path class="pig__outline" d="M234,190 C244,158 258,128 272,104"/>
+          <path class="pig__outline" d="M888,198 C896,168 932,168 934,196 C936,218 914,230 904,216"/>
+          <path class="pig__outline" d="M74,292 C86,314 86,340 72,360"/>
+          <circle class="pig__eye" cx="172" cy="250" r="6"/>
+          <path class="pig__outline" d="M80,326 C90,320 96,330 86,334"/>
+          <path class="pig__outline" d="M72,356 C100,352 124,350 142,344"/>
+          <path class="pig__outline" d="M290,580 L296,566 L302,580 M862,580 L868,566 L874,580"/>
           <g class="pig__labels" aria-hidden="true">
-            <text x="327" y="270">1</text><text x="570" y="268">2</text><text x="570" y="392">3</text><text x="327" y="395">4</text><text x="830" y="320">5</text>
+            <text x="120" y="232">1</text><text x="150" y="392">2</text><text x="284" y="250">3</text><text x="284" y="410">4</text><text x="560" y="230">5</text><text x="690" y="324">6</text><text x="560" y="420">7</text><text x="872" y="330">8</text><text x="284" y="520">9</text><text x="860" y="520">9</text><text x="282" y="566">10</text><text x="856" y="566">10</text>
           </g>
         </svg>
-        <figcaption class="pig__hint"><span class="pig__no" data-pig-no>Nr. 1</span><span data-pig-hint>Schopf</span></figcaption>
+        <figcaption class="pig__hint"><span class="pig__no" data-pig-no>Nr. 1</span><span data-pig-hint>Kopf</span></figcaption>
       </figure>
       <ol class="cutlist" data-cutlist>
-        <li data-cut="schopf"><span class="cutlist__no">Nr. 1</span><h3 class="cutlist__name">Schopf</h3><p class="cutlist__text">Schopfbraten mit Schwarte für den Sonntag, Schopfsteaks für den Griller. Saftig, weil durchzogen.</p></li>
-        <li data-cut="karree"><span class="cutlist__no">Nr. 2</span><h3 class="cutlist__name">Karree</h3><p class="cutlist__text">Kotelett und Karree, mit oder ohne Knochen. Lungenbraten auf Wunsch, am Stück oder als Medaillons.</p></li>
-        <li data-cut="bauch"><span class="cutlist__no">Nr. 3</span><h3 class="cutlist__name">Bauch &amp; Ripperl</h3><p class="cutlist__text">Bauchfleisch für Ofen und Griller, Ripperl mariniert oder natur. Die Kruste macht der Ofen, den Rest machen wir.</p></li>
-        <li data-cut="schulter"><span class="cutlist__no">Nr. 4</span><h3 class="cutlist__name">Schulter</h3><p class="cutlist__text">Schweinsbraten, Gulaschfleisch, Faschiertes frisch durch den Wolf. Für alles, was lang und langsam kocht.</p></li>
-        <li data-cut="schloegel"><span class="cutlist__no">Nr. 5</span><h3 class="cutlist__name">Schlögel &amp; Stelze</h3><p class="cutlist__text">Schnitzelfleisch dünn geklopft, Stelze für den Ofen, Selchfleisch und Speck für Knödel und Jause.</p></li>
-        <li data-cut="wurst"><span class="cutlist__no">Dazu</span><h3 class="cutlist__name">Wurst &amp; Leberkäse</h3><p class="cutlist__text">Hausmannskost für die Jause, im Ganzen oder aufgeschnitten. Frag, was heute da ist.</p></li>
+        <li data-cut="kopf"><span class="cutlist__no">Nr. 1</span><h3 class="cutlist__name">Kopf</h3><p class="cutlist__text">Kopf, Ohren und Rüssel. Für Sulz.</p></li>
+        <li data-cut="backe"><span class="cutlist__no">Nr. 2</span><h3 class="cutlist__name">Backe</h3><p class="cutlist__text">Zum Schmoren, lang und langsam.</p></li>
+        <li data-cut="schopf"><span class="cutlist__no">Nr. 3</span><h3 class="cutlist__name">Schopf</h3><p class="cutlist__text">Für Braten und Steaks, durchzogen und saftig.</p></li>
+        <li data-cut="schulter"><span class="cutlist__no">Nr. 4</span><h3 class="cutlist__name">Schulter</h3><p class="cutlist__text">Schweinsbraten, Gulasch, Faschiertes.</p></li>
+        <li data-cut="karree"><span class="cutlist__no">Nr. 5</span><h3 class="cutlist__name">Karree</h3><p class="cutlist__text">Kotelett und Karreebraten, mit oder ohne Knochen.</p></li>
+        <li data-cut="lungenbraten"><span class="cutlist__no">Nr. 6</span><h3 class="cutlist__name">Lungenbraten</h3><p class="cutlist__text">Das zarteste Stück, kurz gebraten.</p></li>
+        <li data-cut="bauch"><span class="cutlist__no">Nr. 7</span><h3 class="cutlist__name">Bauch &amp; Ripperl</h3><p class="cutlist__text">Für Ofen und Griller.</p></li>
+        <li data-cut="schloegel"><span class="cutlist__no">Nr. 8</span><h3 class="cutlist__name">Schlögel</h3><p class="cutlist__text">Schnitzel und Braten.</p></li>
+        <li data-cut="stelze"><span class="cutlist__no">Nr. 9</span><h3 class="cutlist__name">Stelze</h3><p class="cutlist__text">Vorne und hinten, für den Ofen mit Kruste.</p></li>
+        <li data-cut="fuesse"><span class="cutlist__no">Nr. 10</span><h3 class="cutlist__name">Füße</h3><p class="cutlist__text">Für Sulz und Suppe.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- Spanferkel: dunkel, links die Zeichnung, rechts der Bestellschein -->
-  <section class="section section--dark" id="spanferkel" aria-labelledby="spanferkel-title">
-    <div class="section__head section__head--center">
-      <p class="eyebrow eyebrow--gold">Spanferkel</p>
+  <!-- Spanferkel: kurz -->
+  <section class="section spanferkel" id="spanferkel" aria-labelledby="spanferkel-title">
+    <div class="spanferkel__in">
+      <p class="eyebrow">Spanferkel</p>
       <h2 class="h2" id="spanferkel-title">Ganzes Spanferkel.<br><em>Roh oder gebraten.</em></h2>
-      <p class="sub sub--light">Für Feste, Grillabende und Familienfeiern. Roh zum Selbergrillen oder fertig gebraten mit knuspriger Kruste. Ein paar Tage vorher bestellen.</p>
-    </div>
-    <div class="feature">
-      <figure class="plate plate--spanferkel" data-media="spanferkel" aria-hidden="true">
-        <svg viewBox="0 0 1000 600" focusable="false"><g filter="url(#stamp)"><path class="plate__pig" d="M66,296 C84,262 112,244 150,236 C176,228 196,224 216,214 L238,176 C256,164 270,178 264,206 L272,214 C420,186 640,180 822,206 C880,216 906,246 904,290 C930,276 944,300 922,312 C904,350 890,395 882,430 L884,520 C884,536 858,538 856,520 L850,440 C836,422 816,416 780,420 C700,446 520,452 382,440 C342,446 332,472 332,520 C332,536 306,538 304,520 L300,440 C270,422 232,410 192,402 C150,396 112,382 86,352 C70,340 62,330 62,314 C62,306 64,300 66,296 Z"/><circle class="plate__eye" cx="158" cy="268" r="5"/><line class="plate__spit" x1="0" y1="326" x2="1000" y2="326"/></g></svg>
-        <p class="plate__line">Im Ganzen, auf Bestellung</p>
-      </figure>
-      <ol class="slip">
-        <li class="slip__head"><span>Bestellschein</span><span>Stand 90/91</span></li>
-        <li><span class="slip__n">1</span><div><strong>Anrufen oder vorbeikommen</strong><span>Größe, Termin und ob roh oder gebraten.</span></div></li>
-        <li><span class="slip__n">2</span><div><strong>Wir bereiten vor</strong><span>Gewürzt, gebunden, auf Wunsch fertig gebraten.</span></div></li>
-        <li><span class="slip__n">3</span><div><strong>Abholen am Stand</strong><span>Zum vereinbarten Zeitpunkt, Hannovermarkt Stand 90/91.</span></div></li>
-        <li class="slip__cta"><a class="btn btn--red" href="#kontakt">Spanferkel bestellen</a></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Seit 2008: links die Standnummer als Stempel, rechts der Text, dazu die Schnur -->
-  <section class="section story" id="geschichte" aria-labelledby="story-title">
-    <figure class="plate plate--markt" data-media="markt" aria-hidden="true">
-      <span class="plate__small">Hannovermarkt · Stand</span>
-      <span class="plate__big">90/91</span>
-      <span class="plate__small">1200 Wien · seit 2008</span>
-      <img class="object object--garn" src="/img/garn.webp" srcset="/img/garn-400.webp 400w, /img/garn.webp 760w" sizes="(max-width: 860px) 180px, 18vw" width="760" height="692" alt="" loading="lazy" decoding="async" data-float="0.09">
-    </figure>
-    <div class="story__text">
-      <p class="eyebrow">Seit 2008</p>
-      <h2 class="h2" id="story-title">Ein Stand. Eine Familie. <em>Achtzehn Jahre.</em></h2>
-      <p class="sub">Der Hannovermarkt hat an die fünfundfünfzig Stände. Fleisch vom Schwein gibt es an einem: bei uns, Stand 90/91. Was wir verkaufen, haben wir am selben Morgen geschnitten. Wer etwas Bestimmtes will, ruft an, und es liegt zurück.</p>
+      <p class="sub">Für Feste und Grillabende. Im Ganzen, roh zum Selbergrillen oder fertig gebraten mit Kruste.</p>
     </div>
   </section>
 
@@ -177,16 +166,15 @@
       <div class="card twin__card">
         <p class="eyebrow">Anfahrt</p>
         <p class="twin__big">Hannovermarkt<br>Stand 90/91</p>
-        <p class="sub">1200 Wien, Brigittenau. U6 Jägerstraße oder Dresdner Straße, wenige Gehminuten. Zwischen Hannovergasse und Othmargasse.</p>
+        <p class="sub">1200 Wien, Brigittenau. U6 Jägerstraße oder Dresdner Straße, wenige Gehminuten.</p>
         <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&query=Hannovermarkt+Stand+90+1200+Wien" target="_blank" rel="noopener">Route öffnen</a>
       </div>
     </div>
   </section>
 
   <section class="section section--red" id="kontakt" aria-labelledby="kontakt-title">
-    <p class="eyebrow eyebrow--light">Vorbestellung &amp; Fragen</p>
-    <h2 class="h2" id="kontakt-title">Ruf uns an.</h2>
-    <p class="sub sub--light sub--center">Spanferkel, größere Mengen für Feste oder ein bestimmtes Stück: ein Anruf genügt, wir legen es dir zurück.</p>
+    <p class="eyebrow eyebrow--light">Fragen</p>
+    <h2 class="h2" id="kontakt-title">Ruf an oder komm vorbei.</h2>
     <p class="phone" data-phone-text>Telefonnummer folgt</p>
     <div class="actions actions--center">
       <a class="btn btn--cream" href="#" data-phone-link hidden>Anrufen</a>

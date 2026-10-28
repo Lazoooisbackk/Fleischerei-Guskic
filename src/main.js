@@ -103,8 +103,9 @@ if (pig && list) {
     if (hint && info[cut]) { hint.textContent = info[cut].name; no.textContent = info[cut].no; }
   };
   const onScroll = () => {
-    /* Am Handy steht das Schweinderl oben: die Ziellinie liegt dann unter ihm, sonst in der Fenstermitte */
-    const line = narrow.matches ? (pig.getBoundingClientRect().bottom + window.innerHeight) / 2 : window.innerHeight * 0.5;
+    /* Am Handy steht das Schwein oben: die Ziellinie liegt knapp unter ihm, sonst in der Fenstermitte */
+    const pigB = pig.getBoundingClientRect().bottom;
+    const line = narrow.matches ? pigB + (window.innerHeight - pigB) * 0.35 : window.innerHeight * 0.5;
     let best = byScroll, bestD = Infinity;
     items.forEach((li) => { const r = li.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - line); if (d < bestD) { bestD = d; best = li.dataset.cut; } });
     if (best !== byScroll) { byScroll = best; paint(); }
@@ -123,22 +124,32 @@ if (pig && list) {
   window.addEventListener('resize', onScroll, { passive: true });
 }
 
-/* Werkstücke gehen beim Scrollen ein wenig langsamer mit (Tiefe) */
-const floats = [...document.querySelectorAll('[data-float]')];
-if (floats.length && !reduce) {
-  const move = () => {
-    const mid = window.innerHeight / 2;
-    floats.forEach((el) => { const r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > window.innerHeight + 200) return; el.style.transform = `translate3d(0, ${((r.top + r.height / 2 - mid) * Number(el.dataset.float)).toFixed(1)}px, 0)`; });
-  };
-  move();
-  window.addEventListener('scroll', () => requestAnimationFrame(move), { passive: true });
-  window.addEventListener('resize', move, { passive: true });
+/* Tafel „Heute am Stand“: liest public/stand.json (später schreibt die Handy-Seite dorthin) */
+const board = document.querySelector('[data-board]');
+if (board) {
+  fetch('/stand.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).then((d) => {
+    if (!d || !Array.isArray(d.items) || !d.items.length) return;
+    const rows = board.querySelector('[data-board-rows]'), time = board.querySelector('[data-board-time]');
+    const eur = new Intl.NumberFormat('de-AT', { style: 'currency', currency: 'EUR' });
+    const anyPrice = d.items.some((i) => typeof i.price === 'number');
+    board.classList.toggle('board--noprice', !anyPrice);
+    rows.replaceChildren(...d.items.map((i) => {
+      const tr = document.createElement('tr'); tr.classList.toggle('is-aus', !i.da);
+      const name = document.createElement('td'); name.textContent = i.name;
+      const price = document.createElement('td'); price.textContent = typeof i.price === 'number' ? `${eur.format(i.price)} / kg` : '';
+      const da = document.createElement('td'); da.textContent = i.da ? 'da' : 'aus';
+      tr.append(name, price, da); return tr;
+    }));
+    const t = new Date(d.updated);
+    if (!Number.isNaN(t.getTime())) time.textContent = `Stand ${new Intl.DateTimeFormat('de-AT', { timeZone: 'Europe/Vienna', weekday: 'short', hour: '2-digit', minute: '2-digit' }).format(t)}`;
+    board.hidden = false;
+  }).catch(() => {});
 }
 
 /* Weiches Einblenden beim Scrollen; die Stempel werden „aufgedrückt“ */
 if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.claim__text > *, .section__head > *, .plate, .slip, .story__text, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
+  document.querySelectorAll('.claim__text > *, .board, .section__head > *, .spanferkel__in, .twin__card, .section--red > *').forEach((n) => { n.classList.add('reveal'); io.observe(n); });
   document.querySelectorAll('.stamp').forEach((n) => { n.classList.add('reveal--stamp'); io.observe(n); });
 }
 

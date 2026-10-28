@@ -1,0 +1,17 @@
+{
+  "updated": "2026-10-28T22:40:00+01:00",
+  "items": [
+    { "name": "Schopf", "price": null, "da": true },
+    { "name": "Karree", "price": null, "da": true },
+    { "name": "Kotelett", "price": null, "da": true },
+    { "name": "Lungenbraten", "price": null, "da": true },
+    { "name": "Bauch", "price": null, "da": true },
+    { "name": "Ripperl", "price": null, "da": true },
+    { "name": "Schulter", "price": null, "da": true },
+    { "name": "Schnitzel", "price": null, "da": true },
+    { "name": "Stelze", "price": null, "da": true },
+    { "name": "Faschiertes", "price": null, "da": true },
+    { "name": "Speck", "price": null, "da": false },
+    { "name": "Spanferkel", "price": null, "da": false }
+  ]
+}
