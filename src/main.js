@@ -41,6 +41,37 @@ if (PHONE && phoneText && phoneLink) {
   phoneLink.href = `tel:${PHONE}`; phoneLink.hidden = false;
 }
 
+/* Der Name schrumpft beim Scrollen in die linke obere Ecke und bleibt dort stehen */
+const hero = document.querySelector('[data-hero]'), stage = hero && hero.querySelector('.hero__stage'), heroTitle = document.querySelector('[data-hero-title]'), top = document.querySelector('.top');
+if (hero && stage && heroTitle && top && !reduce) {
+  document.body.classList.add('has-dock');
+  let s = 1, dockX = 0, dockY = 0, docked = false;
+  const measure = () => {
+    const targetH = top.offsetHeight * 0.6;
+    s = targetH / heroTitle.offsetHeight;
+    dockX = parseFloat(getComputedStyle(stage).paddingLeft) || 18;
+    dockY = (top.offsetHeight - targetH) / 2;
+  };
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const update = () => {
+    const runway = Math.max(360, window.innerHeight * 0.6);   /* Weg, auf dem der Name in die Ecke wandert */
+    const p = Math.min(1, Math.max(0, window.scrollY / runway));
+    if (p >= 1) {
+      if (!docked) { docked = true; heroTitle.classList.add('is-docked'); heroTitle.style.left = `${dockX}px`; heroTitle.style.top = `${dockY}px`; heroTitle.style.transform = `scale(${s})`; }
+      return;
+    }
+    if (docked) { docked = false; heroTitle.classList.remove('is-docked'); heroTitle.style.left = ''; heroTitle.style.top = ''; }
+    const e = ease(p);
+    const natLeft = stage.getBoundingClientRect().left + heroTitle.offsetLeft, natTop = stage.getBoundingClientRect().top + heroTitle.offsetTop;
+    heroTitle.style.transform = `translate3d(${(dockX - natLeft) * e}px, ${(dockY - natTop) * e}px, 0) scale(${1 + (s - 1) * e})`;
+  };
+  measure(); update();
+  window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  window.addEventListener('resize', () => { measure(); update(); }, { passive: true });
+  document.fonts.ready.then(() => { measure(); update(); });
+  heroTitle.addEventListener('click', () => { if (docked) window.scrollTo({ top: 0, behavior: 'smooth' }); });
+}
+
 /* Menü am Handy */
 const burger = document.querySelector('.burger'), nav = document.querySelector('.nav');
 if (burger && nav) {

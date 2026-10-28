@@ -1,3 +1,3 @@
-# Upload F4: Start = nur der Name, Blockschrift rot auf Weiß
+# Upload F5: Name wandert beim Scrollen in die Ecke, dickere Schrift, Kopfzeile ohne Umbruch
 
-Vier Dateien: index.html, src/style.css, src/main.js, public/og.jpg. Alle vier (src und public als Ordner) auf GitHub reinziehen, Commit, dann „hab“.
+Drei Dateien: index.html, src/style.css, src/main.js. Auf GitHub reinziehen (src als Ordner), Commit, dann „hab“.
