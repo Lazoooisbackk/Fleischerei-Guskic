@@ -57,10 +57,10 @@ if (hero && stage && heroTitle && top && !reduce) {
     const runway = Math.max(360, window.innerHeight * 0.6);   /* Weg, auf dem der Name in die Ecke wandert */
     const p = Math.min(1, Math.max(0, window.scrollY / runway));
     if (p >= 1) {
-      if (!docked) { docked = true; heroTitle.classList.add('is-docked'); heroTitle.style.left = `${dockX}px`; heroTitle.style.top = `${dockY}px`; heroTitle.style.transform = `scale(${s})`; }
+      if (!docked) { docked = true; document.body.classList.add('is-docked'); heroTitle.classList.add('is-docked'); heroTitle.style.left = `${dockX}px`; heroTitle.style.top = `${dockY}px`; heroTitle.style.transform = `scale(${s})`; }
       return;
     }
-    if (docked) { docked = false; heroTitle.classList.remove('is-docked'); heroTitle.style.left = ''; heroTitle.style.top = ''; }
+    if (docked) { docked = false; document.body.classList.remove('is-docked'); heroTitle.classList.remove('is-docked'); heroTitle.style.left = ''; heroTitle.style.top = ''; }
     const e = ease(p);
     const natLeft = stage.getBoundingClientRect().left + heroTitle.offsetLeft, natTop = stage.getBoundingClientRect().top + heroTitle.offsetTop;
     heroTitle.style.transform = `translate3d(${(dockX - natLeft) * e}px, ${(dockY - natTop) * e}px, 0) scale(${1 + (s - 1) * e})`;
@@ -80,10 +80,6 @@ if (burger && nav) {
   nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
-
-/* Siegel-Leiste: Inhalt verdoppeln, damit die Schleife nahtlos ist */
-const seals = document.querySelector('[data-seals]');
-if (seals && !reduce) seals.innerHTML += seals.innerHTML;
 
 /* Schnittplan: Stück im Bild und in der Liste gehören zusammen */
 const pig = document.querySelector('[data-pig]'), list = document.querySelector('[data-cutlist]');

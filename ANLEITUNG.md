@@ -1,3 +1,3 @@
-# Upload F5: Name wandert beim Scrollen in die Ecke, dickere Schrift, Kopfzeile ohne Umbruch
+# Upload F6: Guskic mittig, keine Kopfzeile im Start, Siegel-Leiste weg
 
-Drei Dateien: index.html, src/style.css, src/main.js. Auf GitHub reinziehen (src als Ordner), Commit, dann „hab“.
+Drei Dateien: index.html, src/style.css, src/main.js. In einem FRISCHEN GitHub-Upload-Tab reinziehen (src als Ordner), Commit, dann „hab“.
